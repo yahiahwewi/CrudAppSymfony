@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Add Classroom
+{% endblock %}
+
+{% block body %}
+    <h1>Add Classroom</h1>
+
+    {# Display any form errors here if necessary #}
+    {{ form_errors(form) }}
+
+    <form method="post" action="{{ path('classroom_add') }}">
+        {{ form_widget(form) }}
+
+        <button type="submit" class="btn btn-success">Add Classroom</button>
+    </form>
+    
+    <a href="{{ path('classrooms_index') }}" class="btn btn-secondary mt-3">Back to Classrooms</a>
+</div>
+
+{% endblock %}

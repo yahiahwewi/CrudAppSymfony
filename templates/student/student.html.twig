@@ -1,0 +1,50 @@
+{# templates/student/index.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Student List
+{% endblock %}
+
+{% block body %}
+    <h1>Student List</h1>
+    
+    {# Add the "Add Student" button here with the appropriate href #}
+    <a href="{{ path('add_student') }}" class="btn btn-success mb-4">Add Student</a>
+    
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Birthday</th>
+                <th>Classroom</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+                <tr>
+                    <td>{{ student.id }}</td>
+                    <td>{{ student.firstName }}</td>
+                    <td>{{ student.lastName }}</td>
+                    <td>{{ student.birthday|date('Y-m-d') }}</td>
+                    <td>{{ student.classroom.name }}</td> {# Assuming classroom is an entity with a 'name' property #}
+                    <td>
+                        <a href="{{ path('edit_student', {'id': student.id}) }}" class="btn btn-primary">Edit</a>
+                        <button class="btn btn-danger" onclick="deleteStudent('{{ path('delete_student', {'id': student.id}) }}')">Delete</button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <script>
+        function deleteStudent(url) {
+            if (confirm('Are you sure you want to delete this student?')) {
+                window.location.href = url; // Redirect to the delete page
+            }
+        }
+    </script>
+{% endblock %}

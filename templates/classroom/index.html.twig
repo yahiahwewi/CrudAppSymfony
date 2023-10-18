@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    All Classrooms
+{% endblock %}
+
+{% block body %}
+    <h1>All Classrooms</h1>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Number of Tables</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for classroom in classrooms %}
+                <tr>
+                    <td>{{ classroom.id }}</td>
+                    <td>{{ classroom.name }}</td>
+                    <td>{{ classroom.nbTable }}</td>
+                    <td>
+                        <a href="{{ path('classroom_edit', {'id': classroom.id}) }}" class="btn btn-primary">Edit</a>
+                        <button class="btn btn-danger" onclick="deleteClassroom('{{ path('classroom_delete', {'id': classroom.id}) }}')">Delete</button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <a href="{{ path('classroom_add') }}" class="btn btn-success">Add Classroom</a>
+</div>
+
+<script>
+    function deleteClassroom(url) {
+        if (confirm('Are you sure you want to delete this classroom?')) {
+            window.location.href = url; // Redirect to the delete page
+        }
+    }
+</script>
+{% endblock %}
